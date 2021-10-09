@@ -1,0 +1,88 @@
+from tkinter import *
+
+x1, y1 = 0, 0
+color = 'black'
+
+def addLine(event):
+    global x1, y1
+
+    canvas.create_line((x1, y1, event.x, event.y), fill=color)
+    x1, y1 = event.x, event.y
+
+def locate_xy(event):
+    global x1, y1
+
+    x1, y1 = event.x, event.y
+
+
+
+
+def show_color(n_color):
+    global color
+
+    color = n_color
+
+
+def new_canvas():
+    canvas.delete('all')
+    display_pallete()
+
+
+window = Tk()
+
+window.title('Broscuta')
+
+window.rowconfigure(0, weight=1)
+window.columnconfigure(0, weight=1)
+
+menubar = Menu(window)
+window.config(menu=menubar)
+submenu = Menu(menubar, tearoff=0)
+
+menubar.add_cascade(label='File', menu=submenu)
+submenu.add_command(label='New Canvas', command=new_canvas)
+
+window.state('zoomed')
+
+canvas = Canvas(window, background='snow')
+canvas.grid(row=0, column=0, sticky='nsew')
+
+canvas.bind('<Button-1>', locate_xy)
+canvas.bind('<B1-Motion>', addLine)
+
+
+def display_pallete():
+    id = canvas.create_rectangle((20, 20, 40, 40), fill='red')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('red'))
+
+    id = canvas.create_rectangle((20, 40, 40, 60), fill='orange')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('orange'))
+
+    id = canvas.create_rectangle((20, 60, 40, 80), fill='yellow')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('yellow'))
+
+    id = canvas.create_rectangle((20, 80, 40, 100), fill='green')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('green'))
+
+    id = canvas.create_rectangle((20, 100, 40, 120), fill='blue')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('blue'))
+
+    id = canvas.create_rectangle((20, 120, 40, 140), fill='indigo')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('indigo'))
+
+    id = canvas.create_rectangle((20, 140, 40, 160), fill='violet')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('violet'))
+
+    id = canvas.create_rectangle((20, 280, 40, 300), fill='black')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('black'))
+
+    id = canvas.create_rectangle((20, 300, 40, 320), fill='gray')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('gray'))
+
+    id = canvas.create_rectangle((20, 320, 40, 340), fill='white')
+    canvas.tag_bind(id, '<Button-1>', lambda x: show_color('white'))
+
+
+display_pallete()
+
+window.mainloop()
