@@ -1,0 +1,37 @@
+from tkinter import *
+
+current_x, current_y= 0,0
+
+#axaXY_pointer
+def locate_xy(event):
+    global current_x, current_y
+    current_x, current_y = event.x, event.y
+    
+#Pointer_cfg
+
+def draw(event):
+    global current_x, current_y
+    
+    print(current_x,current_y,event.x,event.y)
+    canvas.create_line((current_x,current_y,event.x,event.y))
+    current_x, current_y = event.x, event.y
+
+#Fereastra
+
+window = Tk()
+
+window.title('Broscuta')
+window.state('zoomed')
+
+
+
+window.rowconfigure(0, weight=1)
+window.columnconfigure(0, weight=1)
+
+canvas= Canvas(window)
+canvas.grid(row=0,column=0,sticky='nsew')
+canvas.bind('<Button-1>', locate_xy)
+canvas.bind('<B1-Motion>',draw)
+#canvas.create_line(20,20,40,60)
+
+window.mainloop()
